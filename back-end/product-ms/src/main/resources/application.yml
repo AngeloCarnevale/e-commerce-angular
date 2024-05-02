@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: product-ms
+  datasource:
+    url: jdbc:mysql://localhost:3307/products
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8082
+
