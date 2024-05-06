@@ -41,5 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+<<<<<<< HEAD
 .npmrc
+=======
+>>>>>>> refs/remotes/origin/main
 package-lock.json
