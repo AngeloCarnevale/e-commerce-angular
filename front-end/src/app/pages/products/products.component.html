@@ -1,5 +1,18 @@
-<mat-paginator [length]="100"
-               [hidePageSize]="true"
-               [pageSize]="10"
-               aria-label="Select page">
-</mat-paginator>
+<main class="flex flex-col justify-center w-full items-center">
+  <article class="px-40 pb-14">
+    <app-breadcrumb></app-breadcrumb>
+    <section class="flex mt-8 gap-10">
+      <app-accordion-smartphone class="max-w-xs"></app-accordion-smartphone>
+      <div class="w-full flex justify-center">
+        <ul class="grid grid-cols-3 gap-y-10 gap-x-8">
+          <li
+            class="bg-[#F6F6F6] w-[300px] h-[432px]"
+            *ngFor="let product of products"
+          >
+            <a routerLink="/products/{{product.id}}">Ver detalhes</a>
+        </li>
+        </ul>
+      </div>
+    </section>
+  </article>
+</main>

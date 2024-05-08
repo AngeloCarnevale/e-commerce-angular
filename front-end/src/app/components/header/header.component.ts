@@ -5,8 +5,19 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-header',
   standalone: true,
   imports: [MatIconModule],
-  templateUrl: './header.component.html',
-})
-export class HeaderComponent {
+  template: `<header class="p-4">
+    <div class="flex">
+      <img src="/assets/Logo Vector.svg" />
 
-}
+      <input type="text" class="p-2 bg-[#F5F5F5]" placeholder="Search" />
+      <div>
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="person"
+        ></mat-icon>
+      </div>
+    </div>
+  </header> `,
+})
+export class HeaderComponent {}

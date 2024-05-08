@@ -13,4 +13,10 @@ public class ControllerExceptionHandler {
         ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), HttpStatus.BAD_REQUEST);
         return ResponseEntity.badRequest().body(exceptionDTO);
     }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity productNotFound(ProductNotFoundException exception) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionDTO, HttpStatus.NOT_FOUND);
+    }
 }

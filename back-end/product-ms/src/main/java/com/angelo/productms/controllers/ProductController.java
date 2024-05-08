@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+
 @RequestMapping("/products")
 public class ProductController {
 
@@ -29,5 +30,13 @@ public class ProductController {
         List<Product> products = this.productService.getAllProducts();
 
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getProduct (@PathVariable("id") Long id) throws Exception {
+        var product = this.productService.getProductById(id);
+
+
+        return new ResponseEntity(product, HttpStatus.OK);
     }
 }
