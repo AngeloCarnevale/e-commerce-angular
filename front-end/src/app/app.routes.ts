@@ -7,16 +7,23 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 
 export const routes: Routes = [
   {
-    path: 'products',
-    component: ProductsComponent,
-  },
-  {
-    path: 'products/:id',
-    component: ProductDetailComponent,
-  },
-  {
     path: '',
-    component: HomeComponent,
+    component: DashboardLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+
+      {
+        path: 'products',
+        component: ProductsComponent,
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent,
+      },
+    ],
   },
   {
     path: '**',

@@ -8,5 +8,5 @@ import { RouterLink } from '@angular/router';
   templateUrl: './breadcrumb.component.html',
 })
 export class BreadcrumbComponent {
-
+  
 }

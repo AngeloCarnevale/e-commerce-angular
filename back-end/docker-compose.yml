@@ -13,3 +13,9 @@ services:
       MYSQL_PASSWORD: 101010ab
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+    driver: local
