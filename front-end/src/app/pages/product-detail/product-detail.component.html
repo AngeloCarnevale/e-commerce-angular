@@ -1,0 +1,28 @@
+<main class="px-40">
+  <app-breadcrumb></app-breadcrumb>
+  <section class="py-28">
+    <div class="flex gap-12 justify-center items-center">
+      <div>
+        <img
+          src="{{product.thumbnail | upscale}}"
+          alt="Product image"
+          class="w-[413px]"
+        />
+      </div>
+      <div>
+        <div class="flex flex-col gap-6">
+          <h2 class="font-bold text-4xl">{{ product.title }}</h2>
+          <div class="flex items-center gap-4">
+            <span class="font-medium text-3xl">{{ product.price}}</span>
+            <span class="text-2xl text-[#A0A0A0] line-through">${{ product.original_price}}</span>
+          </div>
+        </div>
+
+        <div class="py-8 w-full flex gap-4">
+            <button hlmBtn variant="outline" class="text-black border border-black  py-7 px-14">Add to Wishlist</button>
+            <button hlmBtn class="py-7 px-14">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

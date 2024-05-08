@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity(name = "products")
 @Table(name = "products")
@@ -19,9 +20,12 @@ public class Product {
 
     private String name;
     private BigDecimal price;
+    private String description;
+//    private List<Assessment> assessments;
 
     public Product(ProductDTO data) {
         this.name = data.name();
         this.price = data.price();
+        this.description = data.description();
     }
 }

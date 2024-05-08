@@ -3,6 +3,7 @@ package com.angelo.productms.services;
 import com.angelo.productms.domain.dtos.ProductDTO;
 import com.angelo.productms.domain.entities.product.Product;
 import com.angelo.productms.domain.repositories.ProductRepository;
+import com.angelo.productms.infra.exceptions.ProductNotFoundException;
 import com.angelo.productms.infra.exceptions.ValidatePriceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,16 @@ public class ProductService {
     }
     public List<Product> getAllProducts() {
         return this.repository.findAll();
+    }
+
+    public Product getProductById(Long id) throws Exception {
+
+        var product = this.repository.findById(id).orElse(null);
+
+        if(product == null) {
+            throw new ProductNotFoundException("Product not found");
+        }
+        return product;
     }
 
     public void saveProduct(Product product){

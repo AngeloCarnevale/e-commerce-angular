@@ -1,18 +1,23 @@
-FROM maven:latest AS build
+# Use a imagem base do Maven para compilar o código
+FROM maven:3.8.3-openjdk-17 AS builder
 
-COPY ./discovery /usr/src/app
+# Copie o código fonte para o contêiner
+COPY . /app
 
-ENV HTTP_PROXY=http://proxy.br.bosch.com:8080
-ENV HTTPS_PROXY=http://proxy.br.bosch.com:8080
-
-WORKDIR /usr/src/app
-
-RUN mvn clean package
-
-FROM openjdk:21
-
-COPY --from=build /usr/src/app/target/delivery-0.0.1-SNAPSHOT.jar /app/delivery-0.0.1-SNAPSHOT.jar
-
+# Defina o diretório de trabalho como /app
 WORKDIR /app
 
-CMD ["java", "-jar", "delivery.jar"]
+# Compile e empacote a aplicação
+RUN mvn clean package
+
+# Use a imagem base do OpenJDK 11 para executar a aplicação
+FROM openjdk:17-jre-slim
+
+# Copie o arquivo JAR gerado na etapa anterior para o contêiner
+COPY --from=builder /app/target/discovery-0.0.1-SNAPSHOT.jar /app/
+
+# Defina o diretório de trabalho como /app
+WORKDIR /app
+
+# Comando a ser executado quando o contêiner for iniciado
+CMD ["java", "-jar", "discovery-0.0.1-SNAPSHOT.jar"]
