@@ -1,27 +1,109 @@
-<main class="px-40">
-  <app-breadcrumb></app-breadcrumb>
-  <section class="py-28">
-    <div class="flex gap-12 justify-center items-center">
-      <div>
-        <img
-          src="{{product.thumbnail | upscale}}"
-          alt="Product image"
-          class="w-[413px]"
-        />
+<main>
+  <div class="px-28">
+    <product-detail-breadcrumb
+      [product_name]="product_name"
+    ></product-detail-breadcrumb>
+  </div>
+
+  <section class="py-28 px-40">
+    <div class="flex gap-12 justify-center">
+      <div class="flex gap-12 w-[600px]">
+        <ul class="flex flex-col gap-6">
+          <li *ngFor="let thumbnail of thumbnails" class="w-12 h-12">
+            <img
+              src="{{ thumbnail.url }}"
+              alt="Product thumbnail"
+              (mouseenter)="changeMainThumbnail($event)"
+            />
+          </li>
+        </ul>
+
+        <div class="relative overflow-hidden">
+          <img
+            src="{{ mainThumbnail | upscale }}"
+            alt="Product thumbnail"
+            class="w-full h-full"
+          />
+        </div>
       </div>
+
       <div>
         <div class="flex flex-col gap-6">
           <h2 class="font-bold text-4xl">{{ product.title }}</h2>
           <div class="flex items-center gap-4">
-            <span class="font-medium text-3xl">{{ product.price}}</span>
-            <span class="text-2xl text-[#A0A0A0] line-through">${{ product.original_price}}</span>
+            <span class="font-medium text-3xl">{{
+              product.price | currency : "BRL"
+            }}</span>
+            <span class="text-2xl text-[#A0A0A0] line-through">{{
+              product.original_price | currency : "BRL"
+            }}</span>
+          </div>
+          
+        </div>
+        
+        <div class="py-8 w-full flex gap-4">
+          <button
+            hlmBtn
+            variant="outline"
+            class="text-black border border-black py-7 px-14"
+          >
+            Add to Wishlist
+          </button>
+          <button hlmBtn class="py-7 px-14">Add to Cart</button>
+        </div>
+        <div class="gap-8 flex">
+          <div class="flex gap-4">
+            <div class="bg-[#F6F6F6] p-4 rounded flex items-center">
+              <hlm-icon name="lucideCar" class="size-6" color="gray"></hlm-icon>
+            </div>
+
+            <div class="flex flex-col justify-center">
+              <span class="text-[#717171]">Delivery</span>
+              <span></span>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="bg-[#F6F6F6] p-4 rounded flex items-center">
+              <hlm-icon
+                name="lucideStore"
+                class="size-6"
+                color="gray"
+              ></hlm-icon>
+            </div>
+
+            <div class="flex flex-col justify-center">
+              <span class="text-[#717171]">In Stock </span>
+              <span></span>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="bg-[#F6F6F6] p-4 rounded flex items-center">
+              <hlm-icon name="lucideBadgeCheck" class="size-6" color="gray">
+              </hlm-icon>
+            </div>
+            <div class="flex flex-col justify-center">
+              <span class="text-[#717171]">Guaranteed</span>
+              <span *ngIf="product.sale_terms[0]">
+                {{ product.sale_terms[0].value_name }}
+              </span>
+              <span *ngIf="product.sale_terms[1] && !product.sale_terms[0]">
+                {{ product.sale_terms[1].value_name }}
+              </span>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+  <section class="flex justify-center bg-[#FAFAFA] py-20 px-40">
+    <div class="bg-white py-12 px-10">
+      <div class="flex flex-col gap-8">
+        <span class="font-medium text-2xl">Description</span>
+        <p class="text-[#9D9D9D]">{{ description.plain_text }}</p>
+      </div>
 
-        <div class="py-8 w-full flex gap-4">
-            <button hlmBtn variant="outline" class="text-black border border-black  py-7 px-14">Add to Wishlist</button>
-            <button hlmBtn class="py-7 px-14">Add to Cart</button>
-        </div>
+      <div class="flex flex-col gap-8 pt-8">
+        <span class="font-medium text-2xl">Product Characteristics</span>
       </div>
     </div>
   </section>
