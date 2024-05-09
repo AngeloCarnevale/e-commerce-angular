@@ -15,7 +15,7 @@ export class ProductService {
     return this.http.get(this.con + `sites/MLB/search?q=${search}`)
   }
 
-  getDesc(itemId: string) {
+  getDesc(itemId: string | null) {
     return this.http.get(this.con+`items/${itemId}/description`)
   }
 
