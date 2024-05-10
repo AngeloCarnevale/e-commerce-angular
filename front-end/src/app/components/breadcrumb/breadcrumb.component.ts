@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -7,6 +7,13 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './breadcrumb.component.html',
 })
-export class BreadcrumbComponent {
-  
+export class BreadcrumbComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
+
+  value!: string;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (params) => (this.value = params['search'])
+    );
+  }
 }

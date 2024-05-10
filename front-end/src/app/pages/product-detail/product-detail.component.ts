@@ -35,12 +35,12 @@ import { FilterPipe } from '../../pipes/filter.pipe';
 })
 export class ProductDetailComponent implements OnInit {
   idProduct: string | null = '';
-  product!: any;
-  product_name!: string;
-  description!: any;
+  product: any = {};
+  product_name: string = '';
+  description: any = '';
   completeText: boolean = false;
-  thumbnails!: any[];
-  categories!: [];
+  thumbnails: any[] = [];
+  categories: any[] = [];
   mainThumbnail: string = '';
 
   constructor(private route: ActivatedRoute, private service: ProductService) {}
@@ -56,9 +56,8 @@ export class ProductDetailComponent implements OnInit {
     this.service.getProduct(productId).subscribe((data) => {
       this.product = data;
       this.product_name = this.product.title;
-      this.thumbnails = this.product.pictures;
+      this.thumbnails = this.product.pictures.slice(0, 6);
       this.mainThumbnail = this.product.thumbnail;
-      console.log(data);
     });
   }
 
@@ -78,5 +77,4 @@ export class ProductDetailComponent implements OnInit {
   changeMainThumbnail(e: any) {
     this.mainThumbnail = e.target.src;
   }
-
 }
