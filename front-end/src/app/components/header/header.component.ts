@@ -17,7 +17,7 @@ import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
       <div>
         <button class="text-black cursor-pointer font-medium" routerLink="/">E-ccomerce</button>
       </div>
-      <div class="relative">
+      <div class="relative w-[500px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -49,13 +49,13 @@ import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
             color="black"
           ></hlm-icon>
         </button>
-        <button routerLink="/cart" class="flex items-center">
+        <a href="/cart" class="flex items-center">
           <hlm-icon
             name="lucideShoppingCart"
             class="size-6"
             color="black"
           ></hlm-icon>
-        </button>
+</a>
         <button routerLink="/profile" class="flex items-center">
           <hlm-icon
             name="lucideUser"

@@ -15,6 +15,7 @@ import {
 } from '@ng-icons/lucide';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-detail',
@@ -47,10 +48,13 @@ export class ProductDetailComponent implements OnInit {
   cart!: any[];
 
   private cartService = inject(CartService);
-  state$ = this.cartService.useStore()
+  state$ = this.cartService.useStore();
 
-
-  constructor(private route: ActivatedRoute, private service: ProductService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private service: ProductService,
+    private toastService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadProductDetails();
@@ -86,6 +90,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addProductToCart() {
-    this.state$.subscribe(state => state.addProductToCart(this.product))
+    try {
+      this.state$.subscribe((state) => state.addProductToCart(this.product));
+      this.toastService.success('Product added with success');
+    } catch (e) {
+      this.toastService.error('Error to add product to cart');
+    }
   }
 }

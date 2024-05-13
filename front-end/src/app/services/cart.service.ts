@@ -6,8 +6,9 @@ import { createStore } from 'zustand';
 interface CartStore {
   cartList: any[];
   addProductToCart: (product: any) => void;
-  removeItem: (index: string | number) => void;
+  removeItem: (number: string | number) => void;
   clearCart: () => void;
+  getSubtotal: () => number;
 }
 
 @Injectable({
@@ -19,11 +20,17 @@ export class CartService extends ZustandBaseService<CartStore> {
       cartList: [],
       addProductToCart: (product: any) =>
         set((state) => ({ cartList: [...state.cartList, product] })),
-      removeItem: (index) =>
+      removeItem: (id) =>
         set((state) => ({
-          cartList: state.cartList.filter((_, i) => i !== index),
+          cartList: state.cartList.filter((product) => product.id !== id),
         })),
       clearCart: () => set({ cartList: [] }),
+      getSubtotal: (): number => {
+        return this.getState().cartList.reduce(
+          (acc, product) => acc + product.price,
+          0
+        );
+      },
     });
   }
 
