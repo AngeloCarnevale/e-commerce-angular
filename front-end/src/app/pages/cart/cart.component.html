@@ -1,0 +1,60 @@
+<main class="py-28 px-40 flex justify-center h-[70%] gap-12">
+  <p class="text-black text-3xl  h-4">You have no items in your cart, <span class="font-semibold cursor-pointer hover:underline" *ngIf="cart.length == 0" routerLink="/products" >Let's buy!</span></p>
+ 
+
+  <section *ngIf="cart.length < 0" class="flex w-full gap-12">
+    <article class="flex flex-col gap-10 w-full">
+      <h2 class="font-semibold text-xl">Shopping Cart</h2>
+      <div class="flex flex-col gap-y-12 max-h-[500px] overflow-y-auto">
+        <div *ngFor="let product of cart" class="flex py-5 w-full border-b">
+          <picture>
+            <img src="{{ product.thumbnail }}" />
+          </picture>
+          <div class="flex items-center justify-between w-full">
+            <div
+              class="flex flex-col max-w-52 truncate justify-center gap-2 h-full"
+            >
+              <span class="font-medium">{{ product.title }}</span>
+              <span class="text-sm">#{{ product.id }}</span>
+            </div>
+            <div class="flex gap-2">
+              <span
+                class="flex justify-center items-center border py-2 px-4 rounded"
+              >
+                1
+              </span>
+            </div>
+            <div>
+              <span class="font-medium text-xl">{{
+                product.price | currency : "BRL"
+              }}</span>
+            </div>
+            <button class="pr-6" (click)="removeProductFromCart(product.id)">
+              <hlm-icon name="lucideX" class="size-6"></hlm-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="px-16 py-14 border border-[#D9D9D9] h-min rounded w-[60%]">
+      <h2 class="font-bold text-xl">Order Sumarry</h2>
+      <div class="pt-10 pb-12 flex flex-col gap-4">
+        <div class="flex justify-between">
+          <span class="font-medium">Subtotal</span>
+          <span class="font-medium">{{ subtotal | currency : "BRL" }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-[#545454]">Frete</span>
+          <span>{{ calculateFrete() | currency : "BRL" }}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="font-medium">Total</span>
+          <span>{{ calculateTotal() | currency : "BRL" }}</span>
+        </div>
+      </div>
+      <div class="w-full">
+        <button hlmBtn class="font-medium w-full text-base">Checkout</button>
+      </div>
+    </article>
+  </section>
+</main>

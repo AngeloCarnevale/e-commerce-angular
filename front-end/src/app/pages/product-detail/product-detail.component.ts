@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
@@ -14,6 +14,8 @@ import {
   lucideHeart,
 } from '@ng-icons/lucide';
 import { FilterPipe } from '../../pipes/filter.pipe';
+import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,20 +32,29 @@ import { FilterPipe } from '../../pipes/filter.pipe';
   templateUrl: './product-detail.component.html',
   providers: [
     ProductService,
+    CartService,
     [provideIcons({ lucideCar, lucideStore, lucideBadgeCheck, lucideHeart })],
   ],
 })
 export class ProductDetailComponent implements OnInit {
   idProduct: string | null = '';
-  product!: any;
-  product_name!: string;
-  description!: any;
+  product: any = {};
+  product_name: string = '';
+  description: any = '';
   completeText: boolean = false;
-  thumbnails!: any[];
-  categories!: [];
+  thumbnails: any[] = [];
+  categories: any[] = [];
   mainThumbnail: string = '';
+  cart!: any[];
 
-  constructor(private route: ActivatedRoute, private service: ProductService) {}
+  private cartService = inject(CartService);
+  state$ = this.cartService.useStore();
+
+  constructor(
+    private route: ActivatedRoute,
+    private service: ProductService,
+    private toastService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.loadProductDetails();
@@ -56,9 +67,8 @@ export class ProductDetailComponent implements OnInit {
     this.service.getProduct(productId).subscribe((data) => {
       this.product = data;
       this.product_name = this.product.title;
-      this.thumbnails = this.product.pictures;
+      this.thumbnails = this.product.pictures.slice(0, 6);
       this.mainThumbnail = this.product.thumbnail;
-      console.log(data);
     });
   }
 
@@ -79,4 +89,12 @@ export class ProductDetailComponent implements OnInit {
     this.mainThumbnail = e.target.src;
   }
 
+  addProductToCart() {
+    try {
+      this.state$.subscribe((state) => state.addProductToCart(this.product));
+      this.toastService.success('Product added with success');
+    } catch (e) {
+      this.toastService.error('Error to add product to cart');
+    }
+  }
 }

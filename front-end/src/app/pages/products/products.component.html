@@ -1,9 +1,16 @@
-<main class="flex flex-col justify-center w-full items-center">
+<div *ngIf="loading" class="h-full w-full">
+  <p>Loading</p>
+</div>
+
+<main class="flex flex-col justify-center w-full items-center" *ngIf="!loading">
   <article class="px-40 pb-14">
     <app-breadcrumb></app-breadcrumb>
 
     <section class="flex mt-8 gap-10">
-      <app-accordion-smartphone class="lg:max-w-xs md:max-w-52"></app-accordion-smartphone>
+      <app-accordion-smartphone
+        class="max-w-xs md:max-w-52"
+      ></app-accordion-smartphone>
+
       <div class="w-full flex justify-center">
         <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-y-10 gap-x-8">
           <li
@@ -29,7 +36,11 @@
                   >
                 </div>
 
-                <button hlmBtn routerLink="/products/{{product.id}}" class="w-40">
+                <button
+                  hlmBtn
+                  routerLink="/products/{{ product.id }}"
+                  class="w-40"
+                >
                   Buy Now
                 </button>
               </div>
