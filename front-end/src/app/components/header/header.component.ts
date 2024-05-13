@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HlmInputModule } from '@spartan-ng/ui-input-helm';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, FormsModule, HlmInputModule],
+  imports: [MatIconModule, FormsModule, HlmInputModule, HlmIconComponent, RouterLink],
+  providers: [provideIcons({ lucideShoppingCart, lucideHeart, lucideUser })],
   template: `<header
-    class="flex items-center justify-between bg-white px-4 py-6 text-white shadow border-b-gray-300 md:px-6"
+    class="flex items-center justify-between bg-white px-40 py-4 text-white shadow border-b-gray-300 md:px-6"
   >
-    <nav class="flex justify-center w-full gap-3">
+    <nav class="flex justify-between items-center w-full gap-3">
+      <div>
+        <button class="text-black cursor-pointer font-medium" routerLink="/">E-ccomerce</button>
+      </div>
       <div class="relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +40,29 @@ import { HlmInputModule } from '@spartan-ng/ui-input-helm';
           placeholder="Search"
           (keyup.enter)="searchProducts($event)"
         />
+      </div>
+      <div class="flex items-center gap-6">
+        <button routerLink="/wishlist" class="flex items-center">
+          <hlm-icon
+            name="lucideHeart"
+            class="size-6"
+            color="black"
+          ></hlm-icon>
+        </button>
+        <button routerLink="/cart" class="flex items-center">
+          <hlm-icon
+            name="lucideShoppingCart"
+            class="size-6"
+            color="black"
+          ></hlm-icon>
+        </button>
+        <button routerLink="/profile" class="flex items-center">
+          <hlm-icon
+            name="lucideUser"
+            class="size-6"
+            color="black"
+          ></hlm-icon>
+        </button>
       </div>
     </nav>
   </header> `,

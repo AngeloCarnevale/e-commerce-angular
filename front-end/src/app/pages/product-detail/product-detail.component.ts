@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
@@ -14,6 +14,7 @@ import {
   lucideHeart,
 } from '@ng-icons/lucide';
 import { FilterPipe } from '../../pipes/filter.pipe';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,6 +31,7 @@ import { FilterPipe } from '../../pipes/filter.pipe';
   templateUrl: './product-detail.component.html',
   providers: [
     ProductService,
+    CartService,
     [provideIcons({ lucideCar, lucideStore, lucideBadgeCheck, lucideHeart })],
   ],
 })
@@ -42,6 +44,11 @@ export class ProductDetailComponent implements OnInit {
   thumbnails: any[] = [];
   categories: any[] = [];
   mainThumbnail: string = '';
+  cart!: any[];
+
+  private cartService = inject(CartService);
+  state$ = this.cartService.useStore()
+
 
   constructor(private route: ActivatedRoute, private service: ProductService) {}
 
@@ -76,5 +83,9 @@ export class ProductDetailComponent implements OnInit {
 
   changeMainThumbnail(e: any) {
     this.mainThumbnail = e.target.src;
+  }
+
+  addProductToCart() {
+    this.state$.subscribe(state => state.addProductToCart(this.product))
   }
 }

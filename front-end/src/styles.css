@@ -78,3 +78,24 @@ background-color: #555;
 --input: 240 3.7% 15.9%;
 --ring: 240 4.9% 83.9%;
 }
+
+ /* Remove a aparência padrão das setas */
+ input[type=number]::-webkit-inner-spin-button,
+ input[type=number]::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+ }
+
+ /* Estilo para a seta para cima */
+ input[type=number]::-webkit-inner-spin-button:after {
+     content: '▲';
+     font-size: 20px; /* tamanho da fonte */
+     color: blue; /* cor */
+ }
+
+ /* Estilo para a seta para baixo */
+ input[type=number]::-webkit-inner-spin-button:before {
+     content: '▼';
+     font-size: 14px; /* tamanho da fonte */
+     color: red; /* cor */
+ }
