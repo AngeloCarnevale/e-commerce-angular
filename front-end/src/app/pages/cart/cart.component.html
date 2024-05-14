@@ -1,8 +1,14 @@
 <main class="py-28 px-40 flex justify-center h-[70%] gap-12">
-  <p class="text-black text-3xl  h-4">You have no items in your cart, <span class="font-semibold cursor-pointer hover:underline" *ngIf="cart.length == 0" routerLink="/products" >Let's buy!</span></p>
- 
+  <p *ngIf="cart.length == 0" class="text-black text-3xl h-4">
+    You have no items in your cart,
+    <span
+      class="font-semibold cursor-pointer hover:underline"
+      routerLink="/products"
+      >Let's buy!</span
+    >
+  </p>
 
-  <section *ngIf="cart.length < 0" class="flex w-full gap-12">
+  <section *ngIf="cart.length > 0" class="flex w-full gap-12">
     <article class="flex flex-col gap-10 w-full">
       <h2 class="font-semibold text-xl">Shopping Cart</h2>
       <div class="flex flex-col gap-y-12 max-h-[500px] overflow-y-auto">
@@ -21,7 +27,7 @@
               <span
                 class="flex justify-center items-center border py-2 px-4 rounded"
               >
-                1
+                {{product.quantity}}
               </span>
             </div>
             <div>

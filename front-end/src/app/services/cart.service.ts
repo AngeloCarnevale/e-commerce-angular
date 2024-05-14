@@ -19,17 +19,32 @@ export class CartService extends ZustandBaseService<CartStore> {
     return (set) => ({
       cartList: [],
       addProductToCart: (product: any) =>
-        set((state) => ({ cartList: [...state.cartList, product] })),
+        set((state) => {
+          const index = state.cartList.findIndex(
+            (item) => item.id === product.id
+          );
+          if (index !== -1) {
+            const cartList = [...state.cartList];
+            cartList[index] = {
+              ...cartList[index],
+              quantity: cartList[index].quantity + 1,
+            };
+            return { cartList };
+          } else {
+            return {
+              cartList: [...state.cartList, { ...product, quantity: 1 }],
+            };
+          }
+        }),
       removeItem: (id) =>
         set((state) => ({
           cartList: state.cartList.filter((product) => product.id !== id),
         })),
       clearCart: () => set({ cartList: [] }),
       getSubtotal: (): number => {
-        return this.getState().cartList.reduce(
-          (acc, product) => acc + product.price,
-          0
-        );
+        return this.getState().cartList.reduce((total, product) => {
+          return total + (product.price * product.quantity)
+        }, 0);
       },
     });
   }

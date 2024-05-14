@@ -53,16 +53,6 @@
         <div class="gap-8 flex">
           <div class="flex gap-4">
             <div class="bg-[#F6F6F6] p-4 rounded flex items-center">
-              <hlm-icon name="lucideCar" class="size-6" color="gray"></hlm-icon>
-            </div>
-
-            <div class="flex flex-col justify-center">
-              <span class="text-[#717171]">Delivery</span>
-              <span></span>
-            </div>
-          </div>
-          <div class="flex gap-4">
-            <div class="bg-[#F6F6F6] p-4 rounded flex items-center">
               <hlm-icon
                 name="lucideStore"
                 class="size-6"
@@ -70,9 +60,10 @@
               ></hlm-icon>
             </div>
 
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center font-medium">
               <span class="text-[#717171]">In Stock </span>
-              <span></span>
+              <span *ngIf="product.initial_quantity > 0">Today</span>
+              <span *ngIf="product.initial_quantity < 0">With out stock</span>
             </div>
           </div>
           <div class="flex gap-4">
@@ -80,14 +71,9 @@
               <hlm-icon name="lucideBadgeCheck" class="size-6" color="gray">
               </hlm-icon>
             </div>
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center font-medium">
               <span class="text-[#717171]">Guaranteed</span>
-              <span *ngIf="product.sale_terms[0]">
-                {{ product.sale_terms[0].value_name }}
-              </span>
-              <span *ngIf="product.sale_terms[1] && !product.sale_terms[0]">
-                {{ product.sale_terms[1].value_name }}
-              </span>
+              <span>{{product.warranty.slice(21, 30)}}</span>
             </div>
           </div>
         </div>

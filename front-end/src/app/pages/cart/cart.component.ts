@@ -7,6 +7,7 @@ import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
 import { FreteService } from '../../services/frete.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink, RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -19,17 +20,19 @@ export class CartComponent implements OnInit {
   cart!: any[];
   subtotal!: number;
   private cartService = inject(CartService);
+  private titleService = inject(Title);
   store$ = this.cartService.useStore();
 
   ngOnInit(): void {
+    this.titleService.setTitle('Cart | Eccomerce');
     this.loadCart();
     this.calculateSubtotal();
     this.calculateFrete();
-  }
+    }
 
   loadCart() {
-    this.store$.subscribe((products) => {
-      this.cart = products.cartList;
+    this.store$.subscribe((state) => {
+      this.cart = state.cartList
     });
   }
 
@@ -52,4 +55,5 @@ export class CartComponent implements OnInit {
   calculateFrete(): number {
     return 21.45;
   }
+
 }

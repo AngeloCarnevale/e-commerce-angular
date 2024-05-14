@@ -8,14 +8,22 @@ import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, FormsModule, HlmInputModule, HlmIconComponent, RouterLink],
+  imports: [
+    MatIconModule,
+    FormsModule,
+    HlmInputModule,
+    HlmIconComponent,
+    RouterLink,
+  ],
   providers: [provideIcons({ lucideShoppingCart, lucideHeart, lucideUser })],
   template: `<header
     class="flex items-center justify-between bg-white px-40 py-4 text-white shadow border-b-gray-300 md:px-6"
   >
     <nav class="flex justify-between items-center w-full gap-3">
       <div>
-        <button class="text-black cursor-pointer font-medium" routerLink="/">E-ccomerce</button>
+        <button class="text-black cursor-pointer font-medium" routerLink="/">
+          E-ccomerce
+        </button>
       </div>
       <div class="relative w-[500px]">
         <svg
@@ -43,11 +51,7 @@ import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
       </div>
       <div class="flex items-center gap-6">
         <button routerLink="/wishlist" class="flex items-center">
-          <hlm-icon
-            name="lucideHeart"
-            class="size-6"
-            color="black"
-          ></hlm-icon>
+          <hlm-icon name="lucideHeart" class="size-6" color="black"></hlm-icon>
         </button>
         <a href="/cart" class="flex items-center">
           <hlm-icon
@@ -55,13 +59,9 @@ import { lucideShoppingCart, lucideHeart, lucideUser } from '@ng-icons/lucide';
             class="size-6"
             color="black"
           ></hlm-icon>
-</a>
+        </a>
         <button routerLink="/profile" class="flex items-center">
-          <hlm-icon
-            name="lucideUser"
-            class="size-6"
-            color="black"
-          ></hlm-icon>
+          <hlm-icon name="lucideUser" class="size-6" color="black"></hlm-icon>
         </button>
       </div>
     </nav>
