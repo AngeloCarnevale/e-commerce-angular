@@ -10,8 +10,10 @@ export class ProductService {
   private con = 'https://api.mercadolibre.com/';
   loading: boolean = false;
 
-  getProducts(search: string) {
-    return this.http.get(this.con + `sites/MLB/search?q=${search}`);
+  getProducts(search: string, offset: number) {
+    return this.http.get(
+      this.con + `sites/MLB/search?q=${search}&offset=${offset}&limit=20`
+    );
   }
 
   getDesc(itemId: string | null) {

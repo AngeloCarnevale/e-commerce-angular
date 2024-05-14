@@ -1,19 +1,12 @@
 <div hlmAccordion>
   <div hlmAccordionItem>
-    <button hlmAccordionTrigger>
-      Brand
+    <button hlmAccordionTrigger *ngFor="let filter of filters">
+      {{filter.name}}
       <hlm-icon hlmAccIcon />
     </button>
     <brn-accordion-content hlm>
       <div class="flex flex-col gap-2">
-       
-        <brand-checkbox 
-          >Apple</brand-checkbox
-        >
-        <brand-checkbox> Samsung </brand-checkbox>
-        <brand-checkbox> Xiaomi </brand-checkbox>
-        <brand-checkbox> Poco </brand-checkbox>
-        <brand-checkbox> Nokia </brand-checkbox>
+        <brand-checkbox ></brand-checkbox>
         <label class="flex items-center" hlmLabel>
           <hlm-checkbox class="mr-2 border-[#D3D3D3]" />
           Motorola

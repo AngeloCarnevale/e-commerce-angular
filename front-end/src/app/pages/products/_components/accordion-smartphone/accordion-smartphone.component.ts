@@ -33,4 +33,7 @@ import { ProductService } from '../../../../services/product.service';
   ],
   templateUrl: './accordion-smartphone.component.html',
 })
-export class AccordionSmartphoneComponent {}
+export class AccordionSmartphoneComponent {
+
+  @Input() filters: any[] = [];
+}

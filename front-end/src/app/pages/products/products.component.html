@@ -9,9 +9,19 @@
     <section class="flex mt-8 gap-10">
       <app-accordion-smartphone
         class="max-w-xs md:max-w-52"
+        [filters]="filters"
       ></app-accordion-smartphone>
 
-      <div class="w-full flex justify-center">
+      <div class="w-full flex justify-center flex-col">
+        <div class="pb-6">
+          <p class="text-[#6C6C6C] font-medium">
+            Selected Products:
+            <span class="text-black font-medium text-xl">{{
+              totalProducts
+            }}</span>
+          </p>
+        </div>
+
         <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-y-10 gap-x-8">
           <li
             class="bg-[#F6F6F6] w-[300px] h-[432px] rounded-md"
@@ -50,7 +60,11 @@
       </div>
     </section>
     <section class="mt-10">
-      <pagination-component />
+      <div *ngIf="totalProducts > pageSize" class="w-full flex gap-4 justify-center">
+       <button (click)="previousPage()">Previous</button>
+       <button (click)="nextPage()">Next</button>
+      </div>
+      
     </section>
   </article>
 </main>

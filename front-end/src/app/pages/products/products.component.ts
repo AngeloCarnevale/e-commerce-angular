@@ -32,7 +32,12 @@ export class ProductsComponent implements OnInit {
   products: any[] = [];
   thumbnail!: string;
   loading!: boolean;
-  title:Title = inject(Title);
+  title: Title = inject(Title);
+  totalProducts = 0;
+  pageSize = 20;
+  currentPage = 1;
+  offset = 1;
+  filters!:any[]
 
   constructor(
     private service: ProductService,
@@ -47,15 +52,33 @@ export class ProductsComponent implements OnInit {
       const searchParam = params['search'];
       this.title.setTitle(`${searchParam} | Eccomerce 📦️`);
       console.log(searchParam);
-      this.searchProducts(searchParam);
+
+      this.searchProducts();
+      
     });
   }
-  searchProducts(param: string) {
+  searchProducts(): void {
     this.loading = true;
-    this.service.getProducts(param).subscribe((data: any) => {
-      this.products = data.results;
-      this.loading = false;
-      console.log(data.results);
+    this.route.queryParams.subscribe((params) => {
+      this.service
+        .getProducts(params['search'], this.offset)
+        .subscribe((data: any) => {
+          this.totalProducts = data.paging.total;
+          this.products = data.results;
+          this.loading = false;
+          this.filters = data.available_filters
+          console.log(data);
+        });
     });
+  }
+
+  nextPage(): void {
+    this.offset += 1;
+    this.searchProducts();
+  }
+
+  previousPage(): void {
+    this.offset -= 1;
+    this.searchProducts();
   }
 }

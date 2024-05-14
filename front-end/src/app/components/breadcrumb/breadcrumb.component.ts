@@ -16,4 +16,6 @@ export class BreadcrumbComponent implements OnInit {
       (params) => (this.value = params['search'])
     );
   }
+
+  
 }

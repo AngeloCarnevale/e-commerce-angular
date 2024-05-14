@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   HlmPaginationContentDirective,
   HlmPaginationDirective,
@@ -20,30 +21,31 @@ import {
     HlmPaginationLinkDirective,
     HlmPaginationNextComponent,
     HlmPaginationPreviousComponent,
+    CommonModule,
   ],
-  template: `
-    <nav hlmPagination>
-      <ul hlmPaginationContent>
-        <li hlmPaginationItem>
-          <hlm-pagination-previous link="/components/menubar" />
-        </li>
-        <li hlmPaginationItem>
-          <a hlmPaginationLink link="#">1</a>
-        </li>
-        <li hlmPaginationItem>
-          <a hlmPaginationLink link="#" isActive>2</a>
-        </li>
-        <li hlmPaginationItem>
-          <a hlmPaginationLink link="#">3</a>
-        </li>
-        <li hlmPaginationItem>
-          <hlm-pagination-ellipsis />
-        </li>
-        <li hlmPaginationItem>
-          <hlm-pagination-next link="/components/popover" />
-        </li>
-      </ul>
-    </nav>
-  `,
+  templateUrl: './pagination.component.html',
 })
-export class PaginationComponent {}
+export class PaginationComponent implements OnInit {
+  @Input() currentPage: number = 1;
+  @Input() total!: number;
+  @Input() limit: number = 20;
+
+  pages: number[] = [];
+
+  ngOnInit(): void {
+    const pagesCount = Math.ceil(this.total / this.limit);
+    this.pages = this.range(1, pagesCount);
+    this.pages = this.pages.slice(0, 3);
+  }
+
+  range(start: number, end: number): number[] {
+    return [...Array(end).keys()].map((el) => el + start);
+  }
+
+  previousPage() {
+    this.currentPage -= 1;
+  }
+  nextPage() {
+    this.currentPage += 1;
+  }
+}

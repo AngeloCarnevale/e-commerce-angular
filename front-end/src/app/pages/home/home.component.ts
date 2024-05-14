@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,6 +8,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
-
+export class HomeComponent  implements OnInit{
+  private title = inject(Title)
+  
+  ngOnInit(): void {
+    this.title.setTitle("Eccomerce")
+  }
 }
