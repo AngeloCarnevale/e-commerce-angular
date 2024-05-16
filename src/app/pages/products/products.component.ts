@@ -10,6 +10,7 @@ import { HlmPaginationModule } from '@spartan-ng/ui-pagination-helm';
 import { PaginationComponent } from './_components/pagination/pagination.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { Title } from '@angular/platform-browser';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-products',
@@ -37,12 +38,14 @@ export class ProductsComponent implements OnInit {
   pageSize = 20;
   currentPage = 1;
   offset = 1;
-  filters!:any[]
+  filters!: any[];
+  checked: string = '';
 
   constructor(
     private service: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private filterService: FilterService
   ) {}
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -54,9 +57,17 @@ export class ProductsComponent implements OnInit {
       console.log(searchParam);
 
       this.searchProducts();
-      
+      this.filterService.isChecked$.subscribe((checked) => {
+        checked !== '' &&
+          this.service
+            .getProductsByBrand(searchParam, checked)
+            .subscribe((response: any) => {
+              this.products = response.results;
+            });
+      });
     });
   }
+
   searchProducts(): void {
     this.loading = true;
     this.route.queryParams.subscribe((params) => {
@@ -66,7 +77,7 @@ export class ProductsComponent implements OnInit {
           this.totalProducts = data.paging.total;
           this.products = data.results;
           this.loading = false;
-          this.filters = data.available_filters
+          this.filters = data.available_filters;
           console.log(data);
         });
     });

@@ -4,9 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { lucidePlus, lucideX } from '@ng-icons/lucide';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
-import { FreteService } from '../../services/frete.service';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({

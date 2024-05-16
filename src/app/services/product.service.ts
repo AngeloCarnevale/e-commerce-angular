@@ -27,4 +27,8 @@ export class ProductService {
   getProduct(id: string | null) {
     return this.http.get(this.con + `items/${id}`);
   }
+
+  getProductsByBrand(param: string, category_id: string) {
+    return this.http.get(this.con + `sites/MLB/search?q=${param}?BRAND=${category_id}`);
+  }
 }

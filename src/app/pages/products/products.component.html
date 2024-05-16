@@ -8,8 +8,9 @@
 
     <section class="flex mt-8 gap-10">
       <app-accordion-smartphone
-        class="max-w-xs md:max-w-52"
+        class="max-w-xs"
         [filters]="filters"
+        [checked]="checked"
       ></app-accordion-smartphone>
 
       <div class="w-full flex justify-center flex-col">
@@ -60,11 +61,13 @@
       </div>
     </section>
     <section class="mt-10">
-      <div *ngIf="totalProducts > pageSize" class="w-full flex gap-4 justify-center">
-       <button (click)="previousPage()">Previous</button>
-       <button (click)="nextPage()">Next</button>
+      <div
+        *ngIf="totalProducts > pageSize"
+        class="w-full flex gap-4 justify-center"
+      >
+        <button (click)="previousPage()">Previous</button>
+        <button (click)="nextPage()">Next</button>
       </div>
-      
     </section>
   </article>
 </main>
