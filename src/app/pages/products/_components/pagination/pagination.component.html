@@ -1,0 +1,13 @@
+<nav hlmPagination>
+  <ul hlmPaginationContent>
+    <li hlmPaginationItem>
+      <hlm-pagination-previous (click)="previousPage()" class="cursor-pointer" />
+    </li>
+    <li hlmPaginationItem *ngFor="let page of pages" [ngClass]="{'active:text-red-400': true, active: currentPage == page}">
+      <a hlmPaginationLink class="cursor-pointer">{{ page }}</a>
+    </li>
+    <li hlmPaginationItem>
+      <hlm-pagination-next (click)="nextPage()" class="cursor-pointer"/>
+    </li>
+  </ul>
+</nav>
